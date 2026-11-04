@@ -116,6 +116,25 @@
   .skill h3 i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--accent-soft);font-size:1rem}
   .skill p{margin:0;font-size:.92rem;color:var(--muted)}
 
+  /* skills: animation */
+  .skill{position:relative;overflow:hidden}
+  .skill>*{position:relative;z-index:1}
+  .skill::before{content:"";position:absolute;inset:0;background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%),var(--accent-soft),transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none}
+  .skill::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:scaleX(0);transform-origin:left;transition:transform .45s ease}
+  .skill:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+  .skill:hover::before{opacity:1}
+  .skill:hover::after{transform:scaleX(1)}
+  .skill h3 i{transition:transform .4s cubic-bezier(.3,1.6,.5,1),background .3s,color .3s}
+  .skill:hover h3 i{transform:rotate(-8deg) scale(1.15);background:var(--accent);color:var(--accent-ink)}
+  @keyframes pop{from{transform:scale(0) rotate(-90deg);opacity:0}to{transform:none;opacity:1}}
+  .stagger.in .skill h3 i{animation:pop .6s cubic-bezier(.3,1.6,.5,1) backwards}
+  .stagger.in .skill:nth-child(1) h3 i{animation-delay:.25s}
+  .stagger.in .skill:nth-child(2) h3 i{animation-delay:.37s}
+  .stagger.in .skill:nth-child(3) h3 i{animation-delay:.49s}
+  .stagger.in .skill:nth-child(4) h3 i{animation-delay:.61s}
+  .stagger.in .skill:nth-child(5) h3 i{animation-delay:.73s}
+  .stagger.in .skill:nth-child(6) h3 i{animation-delay:.85s}
+
   /* certificates */
   .cert-group{margin-bottom:28px}
   .cert-group h3{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
@@ -186,6 +205,10 @@
     .projects .card:first-child{grid-column:auto}
   }
 
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);max-width:min(92vw,420px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font-size:.9rem;box-shadow:var(--shadow-hover);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:80;text-align:center}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
   /* animations */
   .fade-up{opacity:0;transform:translateY(22px);animation:fadeUp .8s cubic-bezier(.2,.8,.2,1) forwards}
   @keyframes fadeUp{to{opacity:1;transform:none}}
@@ -204,6 +227,11 @@
     .fade-up,.reveal,.stagger>*{opacity:1;transform:none}
     .bar span{width:var(--p,65%)}
   }
+  .ic{width:1.1em;height:1.1em;flex:none;vertical-align:-.15em}
+  .skill h3 i{color:var(--accent)}
+  .skill h3 i .ic{width:18px;height:18px}
+  .cert .ico .ic{width:16px;height:16px}
+  .btn .ic{width:1.15em;height:1.15em;vertical-align:-.2em}
 </style>
 </head>
 <body>
@@ -216,6 +244,7 @@
   Yellow "todo" highlights = details still to fill in. Delete this comment when done.
 -->
 <div class="progress" id="progress"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <nav>
   <div class="wrap">
@@ -244,7 +273,7 @@
       <div class="hero-cta fade-up d4">
         <a class="btn btn-primary" href="#contact">Get in touch</a>
         <a class="btn btn-ghost" href="#projects">See my projects</a>
-        <a class="btn btn-ghost" href="Sibonelo-Shabalala-CV.pdf" download>⬇ Download CV</a>
+        <a class="btn btn-ghost" href="Sibonelo-Shabalala-CV.pdf" download><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Download CV</a>
       </div>
     </div>
   </div>
@@ -274,15 +303,15 @@
       </article>
 
       <article class="card">
-        <span class="tag">Project</span>
+        <span class="tag">Solo project · Live</span>
         <h3>Community Alert System</h3>
-        <p class="oneliner">A bilingual (English/IsiZulu) safety platform for a local South African community: residents submit alerts, an admin approves them before the public sees them.</p>
+        <p class="oneliner">A bilingual (English/IsiZulu) safety platform for Soweto and Gauteng: residents submit alerts, an admin approves them before the public sees them.</p>
         <div class="tech"><span>C#</span><span>ASP.NET Core MVC</span><span>ASP.NET Core Identity</span><span>Entity Framework Core</span><span>SQLite</span><span>Bootstrap</span></div>
         
         <p class="meta"><b>My part:</b> Solo project: I wrote the spec and built the whole application myself.</p>
         <details class="more"><summary>How it works &amp; what I learned</summary><p class="meta"><b>What it does:</b> Role-based access (Admin and User), alert moderation, a limit of three submissions per user per day, community notices, incident reports, volunteer sign-up, and an admin dashboard with page-view analytics.</p><p class="meta"><b>What I learned:</b> Rules like "only approved alerts are public" and "three alerts a day" have to be enforced on the server, and I documented where strict enforcement would need a database transaction.</p></details>
         
-        <p class="links"><a href="https://github.com/SIbonelo-Starlight/CommunityAlerts">Code</a><span style="color:var(--muted);font-weight:500">Not deployed · runs locally</span></p>
+        <p class="links"><a href="https://communityalerts.onrender.com/" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/SIbonelo-Starlight/CommunityAlerts">Code</a></p>
       </article>
 
       <article class="card">
@@ -304,27 +333,27 @@
     <div class="sec-head reveal"><span class="num">03</span><h2>Skills</h2></div>
     <div class="skills stagger">
       <div class="skill">
-        <h3><i>🌐</i>Networking</h3>
+        <h3><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg></i>Networking</h3>
         <p>Core concepts from Cisco Networking Basics (in progress): addressing, how devices communicate, basic troubleshooting.</p>
       </div>
       <div class="skill">
-        <h3><i>🛡️</i>Cybersecurity</h3>
+        <h3><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></i>Cybersecurity</h3>
         <p>Threats, defences and the attacker's mindset, from Cisco Introduction to Cybersecurity, plus Ethical Hacker (in progress).</p>
       </div>
       <div class="skill">
-        <h3><i>🖥️</i>PC hardware &amp; support</h3>
+        <h3><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></i>PC hardware &amp; support</h3>
         <p>Assembling, diagnosing and configuring PCs, plus installing and troubleshooting operating systems (Cisco IT Essentials).</p>
       </div>
       <div class="skill">
-        <h3><i>📊</i>Data</h3>
+        <h3><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V11M10 20V5M16 20v-6M2 20h20"/></svg></i>Data</h3>
         <p>Intro-level data science: asking questions of data and reading results (Cisco Introduction to Data Science).</p>
       </div>
       <div class="skill">
-        <h3><i>🧭</i>Leading &amp; planning</h3>
+        <h3><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.2c2.8.2 4.5 2 4.5 4.8"/></svg></i>Leading &amp; planning</h3>
         <p>Led a team of 4 through three phases of ITS ResFix: Microsoft Project schedule (finished 100%), 30 tracked requirement changes, a risk register and a stakeholder interview with the client.</p>
       </div>
       <div class="skill">
-        <h3><i>💻</i>Development · backend focus</h3>
+        <h3><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg></i>Development · backend focus</h3>
         <p><b>Backend (my focus):</b> C# (strongest) with ASP.NET Core MVC, Identity and EF Core; Node.js / Express; Supabase/PostgreSQL. <b>Front end:</b> HTML, CSS, JavaScript (learning), Dart/Flutter. <b>Java:</b> basics.</p>
       </div>
     </div>
@@ -336,19 +365,18 @@
     <div class="cert-group reveal">
       <h3>Completed</h3>
       <ul class="cert-list">
-        <li class="cert"><span class="ico">✓</span><span class="t">Introduction to Data Science<small>Cisco</small></span><a href="https://www.credly.com/badges/2a07d817-2f22-432b-b76f-264766527539">Verify</a></li>
-        <li class="cert"><span class="ico">✓</span><span class="t">Introduction to Cybersecurity<small>Cisco</small></span><a href="https://www.credly.com/badges/6209a7ac-41f0-45e5-be68-ff8fb5f3dcc0">Verify</a></li>
-        <li class="cert"><span class="ico">✓</span><span class="t">IT Essentials: PC Hardware and Software<small>Cisco · certificate available on request</small></span></li>
-        <li class="cert"><span class="ico">✓</span><span class="t">Learn-A-Ton<small>Credly badge</small></span><a href="https://www.credly.com/badges/54cf750d-881f-48b1-8bd0-1050e16cd450">Verify</a></li>
+        <li class="cert"><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="t">Introduction to Data Science<small>Cisco</small></span><a href="https://www.credly.com/badges/2a07d817-2f22-432b-b76f-264766527539">Verify</a></li>
+        <li class="cert"><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="t">Introduction to Cybersecurity<small>Cisco</small></span><a href="https://www.credly.com/badges/6209a7ac-41f0-45e5-be68-ff8fb5f3dcc0">Verify</a></li>
+        <li class="cert"><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="t">IT Essentials: PC Hardware and Software<small>Cisco · certificate available on request</small></span></li>
+        <li class="cert"><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="t">Learn-A-Ton<small>Credly badge</small></span><a href="https://www.credly.com/badges/54cf750d-881f-48b1-8bd0-1050e16cd450">Verify</a></li>
       </ul>
     </div>
 
     <div class="cert-group reveal">
       <h3>In progress</h3>
       <ul class="cert-list">
-        <li class="cert"><span class="ico">…</span><span class="t">Networking Basics<small>Cisco · in progress</small></span></li>
-        <li class="cert"><span class="ico">…</span><span class="t">Ethical Hacker<small>Cisco · about 55% complete</small>
-          <div class="bar"><span style="--p:55%"></span></div></span></li>
+        <li class="cert"><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="t">Networking Basics<small>Cisco · in progress</small></span></li>
+        <li class="cert"><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="t">Ethical Hacker<small>Cisco · in progress</small></span></li>
       </ul>
     </div>
   </section>
@@ -357,11 +385,14 @@
     <h2>Looking for a junior IT hire or an intern?</h2>
     <p>Email me and I'll reply with project walkthroughs and my CV.</p>
     <div class="hero-cta" style="justify-content:center;margin-top:8px">
-      <a class="btn btn-primary" href="mailto:cbonelonkosikhona@gmail.com?subject=Opportunity%20for%20Sibonelo">Email Sibonelo</a>
-      <a class="btn btn-ghost" href="Sibonelo-Shabalala-CV.pdf" download>⬇ Download CV</a>
+      <a class="btn btn-primary" id="emailBtn" href="mailto:cbonelonkosikhona@gmail.com?subject=Opportunity%20for%20Sibonelo">Email Sibonelo</a>
+      <a class="btn btn-ghost" href="https://wa.me/27613048924?text=Hi%20Sibonelo%2C%20I%20saw%20your%20profile%20website." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5A8.5 8.5 0 1 1 21 11.5z"/></svg> WhatsApp</a>
+      <a class="btn btn-ghost" href="Sibonelo-Shabalala-CV.pdf" download><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg> Download CV</a>
     </div>
     <div class="contact">
       <a href="mailto:cbonelonkosikhona@gmail.com">cbonelonkosikhona@gmail.com</a>
+      <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=cbonelonkosikhona@gmail.com&amp;su=Opportunity%20for%20Sibonelo" target="_blank" rel="noopener">Open in Gmail</a>
+      <a href="https://wa.me/27613048924" target="_blank" rel="noopener">WhatsApp</a>
       <a href="https://github.com/SIbonelo-Starlight">GitHub</a>
       <a href="https://www.linkedin.com/in/sibonelo-nkosikhona-shabalala-22505b363/">LinkedIn</a>
     </div>
@@ -372,6 +403,36 @@
 <footer>© 2026 Sibonelo Nkosikhona Shabalala</footer>
 
 <script>
+  // email button: open the mail app, and also copy the address in case none is set up
+  var EMAIL = 'cbonelonkosikhona@gmail.com';
+  var toast = document.getElementById('toast');
+  var toastTimer;
+  function showToast(msg){
+    if(!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 5000);
+  }
+  var emailBtn = document.getElementById('emailBtn');
+  if (emailBtn) {
+    emailBtn.addEventListener('click', function(){
+      var done = function(){ showToast('Email address copied: ' + EMAIL + '. If no mail app opened, paste it into your email, or use "Open in Gmail".'); };
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(EMAIL).then(done, function(){ showToast('Email me at ' + EMAIL); });
+        } else { showToast('Email me at ' + EMAIL); }
+      } catch (e) { showToast('Email me at ' + EMAIL); }
+    });
+  }
+  // skill cards: spotlight follows the pointer
+  document.querySelectorAll('.skill').forEach(function(el){
+    el.addEventListener('pointermove', function(e){
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
   // project details: open on wide screens, collapsed on phones
   if (window.matchMedia('(min-width:700px)').matches) {
     document.querySelectorAll('details.more').forEach(function(d){ d.open = true; });
