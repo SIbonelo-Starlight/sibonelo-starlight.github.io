@@ -66,7 +66,7 @@
   .chips{display:flex;flex-wrap:wrap;gap:8px}
   .chip{font-size:.82rem;padding:5px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:var(--hero-ink)}
   .hero-cta{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
-  @media(max-width:620px){.hero .wrap{flex-direction:column;align-items:flex-start}.avatar{width:84px;height:84px;font-size:1.8rem;border-radius:22px}}
+  @media(max-width:620px){.hero .wrap{flex-direction:column;align-items:flex-start}.avatar{width:64px;height:64px;font-size:1.4rem;border-radius:18px}}
 
   /* buttons */
   .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:10px;font-weight:600;font-size:.95rem;transition:transform .2s,box-shadow .2s,background .2s;border:1px solid transparent;cursor:pointer}
@@ -95,7 +95,15 @@
   .oneliner{font-weight:500}
   .meta{font-size:.9rem;color:var(--muted);margin:0 0 8px}
   .meta b{color:var(--ink);font-weight:600}
-  .links{margin:14px 0 0;display:flex;gap:16px;font-weight:600;font-size:.9rem}
+  .tech{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+  .tech span{font-size:.76rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+  details.more{margin:8px 0 0;border-top:1px solid var(--line);padding-top:10px}
+  details.more summary{cursor:pointer;font-weight:600;font-size:.88rem;color:var(--accent);list-style:none;display:flex;justify-content:space-between;align-items:center;padding:2px 0}
+  details.more summary::-webkit-details-marker{display:none}
+  details.more summary::after{content:"+";font-size:1.2rem;line-height:1}
+  details.more[open] summary::after{content:"\2212"}
+  details.more[open] summary{margin-bottom:8px}
+  .links{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px 16px;font-weight:600;font-size:.9rem}
   .links a{position:relative}
   .links a::after{content:" →";display:inline-block;transition:transform .2s}
   .links a:hover::after{transform:translateX(4px)}
@@ -156,7 +164,17 @@
     .skills{grid-template-columns:1fr}
     .cert{flex-wrap:wrap;gap:10px}
     .cert .t{flex:1 1 60%}
-    .hero-cta .btn{flex:1 1 100%;justify-content:center}
+    .hero-cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+    .hero-cta .btn{justify-content:center;padding:11px 10px;font-size:.9rem}
+    .hero-cta .btn:first-child{grid-column:1/-1}
+    .cta .hero-cta .btn{grid-column:1/-1}
+    .cta .hero-cta{grid-template-columns:1fr}
+    .chip{font-size:.78rem;padding:4px 10px}
+    .skill{padding:14px 16px}
+    .skill p{font-size:.88rem}
+    .cert{padding:12px 14px}
+    .cert .t{font-size:.95rem}
+    .card .oneliner{font-size:.95rem}
     .cta{padding:36px 18px;border-radius:16px}
     .cta h2{font-size:1.35rem}
     .contact{flex-direction:column;gap:10px}
@@ -236,7 +254,7 @@
 
   <section id="about" class="about reveal">
     <div class="sec-head"><span class="num">01</span><h2>About</h2></div>
-    <p>I just finished my Diploma in Information Technology at CUT, and I learn best by building things people could actually use. My projects so far deal with fixing problems in a system and helping people find what's in their community. Alongside that, I've been working through Cisco courses in cybersecurity, networking and ethical hacking, because I want to understand how systems break as well as how they're built.</p>
+    <p>I just finished my Diploma in Information Technology at CUT, and I learn best by building things people could actually use. My projects so far fix problems in a real system, keep a community informed about safety, and take orders for a takeaway. I lean towards the backend, where the rules of a system live. Alongside that, I've been working through Cisco courses in cybersecurity, networking and ethical hacking, because I want to understand how systems break as well as how they're built.</p>
   </section>
 
   <section id="projects">
@@ -247,10 +265,11 @@
         <span class="tag">Group project · ITC327W · Live</span>
         <h3>ITS ResFix</h3>
         <p class="oneliner">Replaces phone calls and WhatsApp messages with a tracked complaint system for a 168-student residence: students report faults, the system assigns a worker and starts a 48-hour clock.</p>
-        <p class="meta"><b>Built with:</b> Flutter (student app) · ASP.NET Core 8 (manager and worker portals, API) · Supabase/PostgreSQL · Cloudinary · BulkSMS</p>
-        <p class="meta"><b>What it does:</b> SMS first-login, photo complaints, AI triage of spam and emergencies, auto-assignment by category, overdue escalation to an external company, and reports with CSV export.</p>
+        <div class="tech"><span>Flutter</span><span>ASP.NET Core 8</span><span>Supabase/PostgreSQL</span><span>Cloudinary</span><span>BulkSMS</span></div>
+        
         <p class="meta"><b>My part:</b> Group leader and project manager for a team of 4: I ran the schedule, the change log and the risk register, and owned the auto-assignment rules risk, so rules only accept real categories and active workers.</p>
-        <p class="meta"><b>What I learned:</b> Cutting scope early (native push, offline sync, an external API) is what let us ship every must-have feature, and putting a server API between the app and the database kept database keys out of the app.</p>
+        <details class="more"><summary>How it works &amp; what I learned</summary><p class="meta"><b>What it does:</b> SMS first-login, photo complaints, AI triage of spam and emergencies, auto-assignment by category, overdue escalation to an external company, and reports with CSV export.</p><p class="meta"><b>What I learned:</b> Cutting scope early (native push, offline sync, an external API) is what let us ship every must-have feature, and putting a server API between the app and the database kept database keys out of the app.</p></details>
+        
         <p class="links"><a href="https://github.com/KhanyileChaka/ITS-ResFix">Code</a><a href="https://student.itsdance.co.za">Student app</a><a href="https://itsdance.co.za">Portal</a></p>
       </article>
 
@@ -258,10 +277,11 @@
         <span class="tag">Project</span>
         <h3>Community Alert System</h3>
         <p class="oneliner">A bilingual (English/IsiZulu) safety platform for a local South African community: residents submit alerts, an admin approves them before the public sees them.</p>
-        <p class="meta"><b>Built with:</b> C# · ASP.NET Core MVC (.NET 8) · ASP.NET Core Identity · Entity Framework Core · SQLite · Bootstrap</p>
-        <p class="meta"><b>What it does:</b> Role-based access (Admin and User), alert moderation, a limit of three submissions per user per day, community notices, incident reports, volunteer sign-up, and an admin dashboard with page-view analytics.</p>
+        <div class="tech"><span>C#</span><span>ASP.NET Core MVC</span><span>ASP.NET Core Identity</span><span>Entity Framework Core</span><span>SQLite</span><span>Bootstrap</span></div>
+        
         <p class="meta"><b>My part:</b> Solo project: I wrote the spec and built the whole application myself.</p>
-        <p class="meta"><b>What I learned:</b> Rules like "only approved alerts are public" and "three alerts a day" have to be enforced on the server, and I documented where strict enforcement would need a database transaction.</p>
+        <details class="more"><summary>How it works &amp; what I learned</summary><p class="meta"><b>What it does:</b> Role-based access (Admin and User), alert moderation, a limit of three submissions per user per day, community notices, incident reports, volunteer sign-up, and an admin dashboard with page-view analytics.</p><p class="meta"><b>What I learned:</b> Rules like "only approved alerts are public" and "three alerts a day" have to be enforced on the server, and I documented where strict enforcement would need a database transaction.</p></details>
+        
         <p class="links"><a href="https://github.com/SIbonelo-Starlight/CommunityAlerts">Code</a><span style="color:var(--muted);font-weight:500">Not deployed · runs locally</span></p>
       </article>
 
@@ -269,10 +289,11 @@
         <span class="tag">Project</span>
         <h3>B&amp;G Fast Food</h3>
         <p class="oneliner">An online ordering system for a South African braai takeaway: customers build a cart and order, and staff manage the menu from a password-protected admin panel.</p>
-        <p class="meta"><b>Built with:</b> HTML · CSS · JavaScript · Node.js · Express · EmailJS · Nodemailer</p>
-        <p class="meta"><b>What it does:</b> Plate customisation (one side, exactly two salads), delivery or pickup pricing, a cart that survives reloads, emailed order confirmation, and admin login with rate-limited attempts and 2-hour sessions.</p>
+        <div class="tech"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Node.js</span><span>Express</span><span>EmailJS</span><span>Nodemailer</span></div>
+        
         <p class="meta"><b>My part:</b> Solo project: I wrote the spec, the Node/Express server, the admin panel and the customer shop myself.</p>
-        <p class="meta"><b>What I learned:</b> I wrote down 11 known limitations before launch, such as the server trusting browser-sent prices, so I know what to fix before real customers use it.</p>
+        <details class="more"><summary>How it works &amp; what I learned</summary><p class="meta"><b>What it does:</b> Plate customisation (one side, exactly two salads), delivery or pickup pricing, a cart that survives reloads, emailed order confirmation, and admin login with rate-limited attempts and 2-hour sessions.</p><p class="meta"><b>What I learned:</b> I wrote down 11 known limitations before launch, such as the server trusting browser-sent prices, so I know what to fix before real customers use it.</p></details>
+        
         <p class="links"><a href="https://github.com/SIbonelo-Starlight/B-G-Fast-Food">Code</a><span style="color:var(--muted);font-weight:500">Not deployed · runs locally</span></p>
       </article>
 
@@ -351,6 +372,10 @@
 <footer>© 2026 Sibonelo Nkosikhona Shabalala</footer>
 
 <script>
+  // project details: open on wide screens, collapsed on phones
+  if (window.matchMedia('(min-width:700px)').matches) {
+    document.querySelectorAll('details.more').forEach(function(d){ d.open = true; });
+  }
   // reveal on scroll
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
