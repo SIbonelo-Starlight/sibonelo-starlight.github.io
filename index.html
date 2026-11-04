@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sibonelo Nkosikhona Shabalala · IT Graduate</title>
+<meta name="description" content="IT graduate (Diploma in IT, CUT 2026) building practical tools and learning networking and security. Open to junior roles and internships.">
+<style>
+  :root{
+    --bg:#f6f7f9; --surface:#ffffff; --ink:#0f172a; --muted:#5b6475; --line:#e3e7ee;
+    --accent:#0f766e; --accent-2:#2563eb; --accent-ink:#ffffff;
+    --accent-soft:rgba(15,118,110,.10);
+    --hero-a:#0f172a; --hero-b:#13405a; --hero-ink:#f1f5f9; --hero-muted:#a9b6c8;
+    --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.06);
+    --shadow-hover:0 2px 4px rgba(15,23,42,.06),0 16px 36px rgba(15,23,42,.12);
+    --todo-bg:#fff3c4; --todo-ink:#6b5200;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0b0f16; --surface:#131923; --ink:#e8edf4; --muted:#9aa6b8; --line:#232c3a;
+      --accent:#2dd4bf; --accent-2:#60a5fa; --accent-ink:#04201c;
+      --accent-soft:rgba(45,212,191,.12);
+      --hero-a:#070b12; --hero-b:#0f2f44;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+      --shadow-hover:0 2px 4px rgba(0,0,0,.5),0 16px 36px rgba(0,0,0,.45);
+      --todo-bg:#3a3110; --todo-ink:#f3d97a;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+  img,svg{max-width:100%}
+  p,li,h1,h2,h3{overflow-wrap:anywhere}
+
+  /* scroll progress */
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:60}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+  .logo span{color:var(--accent)}
+  nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+  nav ul a{display:block;padding:6px 12px;border-radius:8px;color:var(--muted);font-size:.9rem;font-weight:500;transition:.2s}
+  nav ul a:hover,nav ul a.active{color:var(--ink);background:var(--accent-soft)}
+  nav ul{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  nav ul::-webkit-scrollbar{display:none}
+  nav ul a{white-space:nowrap}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden;color:var(--hero-ink);background:linear-gradient(135deg,var(--hero-a),var(--hero-b));padding:72px 0 88px}
+  .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:.35;animation:float 14s ease-in-out infinite}
+  .hero::before{width:380px;height:380px;background:var(--accent);top:-120px;right:-80px}
+  .hero::after{width:320px;height:320px;background:var(--accent-2);bottom:-140px;left:-60px;animation-delay:-7s}
+  @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,24px)}}
+  .hero .wrap{position:relative;z-index:1;display:flex;gap:32px;align-items:center}
+  .avatar{flex:none;width:112px;height:112px;border-radius:28px;display:grid;place-items:center;font-size:2.4rem;font-weight:700;color:#fff;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 12px 40px rgba(0,0,0,.35);transform:rotate(-4deg)}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--hero-muted);margin:0 0 10px}
+  .dot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 10px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+  h1{font-size:clamp(1.55rem,4vw,2.2rem);line-height:1.25;margin:0 0 18px;font-weight:700;letter-spacing:-.02em}
+  h1 .sep{color:var(--accent);margin:0 .15em}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:.82rem;padding:5px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:var(--hero-ink)}
+  .hero-cta{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+  @media(max-width:620px){.hero .wrap{flex-direction:column;align-items:flex-start}.avatar{width:84px;height:84px;font-size:1.8rem;border-radius:22px}}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:10px;font-weight:600;font-size:.95rem;transition:transform .2s,box-shadow .2s,background .2s;border:1px solid transparent;cursor:pointer}
+  .btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 20px rgba(45,212,191,.25)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(45,212,191,.38)}
+  .btn-ghost{color:var(--hero-ink);border-color:rgba(255,255,255,.28)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+
+  /* sections */
+  section{padding:64px 0 8px}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+  .sec-head .num{font-size:.8rem;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:8px}
+  h2{margin:0;font-size:1.5rem;letter-spacing:-.02em}
+  .sec-head::after{content:"";flex:1;height:1px;background:var(--line)}
+  p{margin:0 0 12px}
+  .about p{font-size:1.1rem;color:var(--ink);max-width:68ch}
+
+  /* projects */
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s,border-color .3s;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+  .card:hover::before{transform:scaleX(1)}
+  .card .tag{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+  .card h3{margin:4px 0 8px;font-size:1.15rem;letter-spacing:-.01em}
+  .oneliner{font-weight:500}
+  .meta{font-size:.9rem;color:var(--muted);margin:0 0 8px}
+  .meta b{color:var(--ink);font-weight:600}
+  .links{margin:14px 0 0;display:flex;gap:16px;font-weight:600;font-size:.9rem}
+  .links a{position:relative}
+  .links a::after{content:" →";display:inline-block;transition:transform .2s}
+  .links a:hover::after{transform:translateX(4px)}
+
+  /* skills */
+  .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .skill{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:transform .25s,box-shadow .25s}
+  .skill:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .skill h3{margin:0 0 6px;font-size:1rem;display:flex;align-items:center;gap:10px}
+  .skill h3 i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--accent-soft);font-size:1rem}
+  .skill p{margin:0;font-size:.92rem;color:var(--muted)}
+
+  /* certificates */
+  .cert-group{margin-bottom:28px}
+  .cert-group h3{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+  .cert-list{display:grid;gap:10px;list-style:none;margin:0;padding:0}
+  .cert{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;transition:transform .2s,border-color .2s}
+  .cert:hover{transform:translateX(4px);border-color:var(--accent)}
+  .cert .ico{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-weight:700}
+  .cert .t{flex:1}
+  .cert .t small{display:block;color:var(--muted)}
+  .bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:8px}
+  .bar span{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width 1.4s cubic-bezier(.2,.8,.2,1) .3s}
+  .reveal.in .bar span{width:var(--p,65%)}
+
+  /* cta */
+  .cta{margin:64px 0 0;text-align:center;border-radius:20px;padding:48px 24px;color:var(--hero-ink);position:relative;overflow:hidden;background:linear-gradient(135deg,var(--hero-a),var(--hero-b))}
+  .cta::before{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:var(--accent);filter:blur(80px);opacity:.3;top:-120px;left:50%;animation:float 12s ease-in-out infinite}
+  .cta>*{position:relative}
+  .cta h2{font-size:1.7rem;margin-bottom:8px}
+  .cta p{color:var(--hero-muted)}
+  .contact{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:20px;font-size:.92rem}
+  .contact a{color:var(--hero-ink);opacity:.85;border-bottom:1px solid rgba(255,255,255,.3);transition:.2s}
+  .contact a:hover{opacity:1;border-color:var(--accent)}
+  footer{color:var(--muted);font-size:.85rem;text-align:center;padding:32px 0 40px}
+
+  .todo{background:var(--todo-bg);color:var(--todo-ink)!important;padding:0 5px;border-radius:4px;font-size:.92em;border:0!important}
+
+  /* responsive: tablet */
+  @media(max-width:900px){
+    .hero{padding:56px 0 64px}
+    section{padding:48px 0 4px}
+    .projects{grid-template-columns:repeat(2,1fr)}
+    .projects .card:first-child{grid-column:1/-1}
+  }
+  /* responsive: phone */
+  @media(max-width:600px){
+    body{font-size:15.5px}
+    nav .wrap{height:52px;gap:8px}
+    nav ul a{padding:6px 9px;font-size:.85rem}
+    .hero{padding:40px 0 52px}
+    section{padding:40px 0 4px}
+    .sec-head{margin-bottom:18px}
+    h2{font-size:1.3rem}
+    .about p{font-size:1rem}
+    .projects{grid-template-columns:1fr;gap:16px}
+    .card{padding:18px}
+    .skills{grid-template-columns:1fr}
+    .cert{flex-wrap:wrap;gap:10px}
+    .cert .t{flex:1 1 60%}
+    .hero-cta .btn{flex:1 1 100%;justify-content:center}
+    .cta{padding:36px 18px;border-radius:16px}
+    .cta h2{font-size:1.35rem}
+    .contact{flex-direction:column;gap:10px}
+    .card:hover,.cert:hover,.skill:hover{transform:none}
+  }
+  /* wide screens */
+  @media(min-width:1200px){
+    .projects{grid-template-columns:repeat(3,1fr)}
+    .projects .card:first-child{grid-column:auto}
+  }
+
+  /* animations */
+  .fade-up{opacity:0;transform:translateY(22px);animation:fadeUp .8s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes fadeUp{to{opacity:1;transform:none}}
+  .d1{animation-delay:.1s}.d2{animation-delay:.25s}.d3{animation-delay:.4s}.d4{animation-delay:.55s}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .stagger>*{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+  .stagger.in>*{opacity:1;transform:none}
+  .stagger.in>*:nth-child(2){transition-delay:.12s}
+  .stagger.in>*:nth-child(3){transition-delay:.24s}
+  .stagger.in>*:nth-child(4){transition-delay:.36s}
+  .stagger.in>*:nth-child(5){transition-delay:.48s}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .fade-up,.reveal,.stagger>*{opacity:1;transform:none}
+    .bar span{width:var(--p,65%)}
+  }
+</style>
+</head>
+<body>
+<!--
+  HEADLINE OPTIONS (formula: Role · What I do · What I'm open to). Swap the <h1> below to try another:
+  A) IT Graduate · Building practical tools and learning networking & security · Open to junior roles and internships
+  B) Diploma in IT (CUT) · Web apps, PC support and cybersecurity basics · Open to junior IT, support or security roles
+  C) Junior IT Professional · Fixing real problems with software and sharp troubleshooting · Open to internships and freelance work
+
+  Yellow "todo" highlights = details still to fill in. Delete this comment when done.
+-->
+<div class="progress" id="progress"></div>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">Sibonelo<span>.</span></a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="avatar fade-up" aria-hidden="true">SS</div>
+    <div>
+      <p class="eyebrow fade-up d1"><span class="dot"></span> Sibonelo Nkosikhona Shabalala</p>
+      <h1 class="fade-up d2">IT Graduate <span class="sep">·</span> Building practical tools and learning networking &amp; security <span class="sep">·</span> Open to junior roles and internships</h1>
+      <div class="chips fade-up d3">
+        <span class="chip">Diploma in IT, CUT 2026</span>
+        <span class="chip">Cisco certified courses</span>
+        <span class="chip">Available now</span>
+      </div>
+      <div class="hero-cta fade-up d4">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn btn-ghost" href="#projects">See my projects</a>
+        <a class="btn btn-ghost" href="Sibonelo-Shabalala-CV.pdf" download>⬇ Download CV</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="about" class="about reveal">
+    <div class="sec-head"><span class="num">01</span><h2>About</h2></div>
+    <p>I just finished my Diploma in Information Technology at CUT, and I learn best by building things people could actually use. My projects so far deal with fixing problems in a system and helping people find what's in their community. Alongside that, I've been working through Cisco courses in cybersecurity, networking and ethical hacking, because I want to understand how systems break as well as how they're built.</p>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head reveal"><span class="num">02</span><h2>Projects</h2></div>
+    <div class="projects stagger reveal-group">
+
+      <article class="card">
+        <span class="tag">Group project · ITC327W · Live</span>
+        <h3>ITS ResFix</h3>
+        <p class="oneliner">Replaces phone calls and WhatsApp messages with a tracked complaint system for a 168-student residence: students report faults, the system assigns a worker and starts a 48-hour clock.</p>
+        <p class="meta"><b>Built with:</b> Flutter (student app) · ASP.NET Core 8 (manager and worker portals, API) · Supabase/PostgreSQL · Cloudinary · BulkSMS</p>
+        <p class="meta"><b>What it does:</b> SMS first-login, photo complaints, AI triage of spam and emergencies, auto-assignment by category, overdue escalation to an external company, and reports with CSV export.</p>
+        <p class="meta"><b>My part:</b> Group leader and project manager for a team of 4: I ran the schedule, the change log and the risk register, and owned the auto-assignment rules risk, so rules only accept real categories and active workers.</p>
+        <p class="meta"><b>What I learned:</b> Cutting scope early (native push, offline sync, an external API) is what let us ship every must-have feature, and putting a server API between the app and the database kept database keys out of the app.</p>
+        <p class="links"><a href="https://github.com/KhanyileChaka/ITS-ResFix">Code</a><a href="https://student.itsdance.co.za">Student app</a><a href="https://itsdance.co.za">Portal</a></p>
+      </article>
+
+      <article class="card">
+        <span class="tag">Project</span>
+        <h3>Community Alert System</h3>
+        <p class="oneliner">A bilingual (English/IsiZulu) safety platform for a local South African community: residents submit alerts, an admin approves them before the public sees them.</p>
+        <p class="meta"><b>Built with:</b> C# · ASP.NET Core MVC (.NET 8) · ASP.NET Core Identity · Entity Framework Core · SQLite · Bootstrap</p>
+        <p class="meta"><b>What it does:</b> Role-based access (Admin and User), alert moderation, a limit of three submissions per user per day, community notices, incident reports, volunteer sign-up, and an admin dashboard with page-view analytics.</p>
+        <p class="meta"><b>My part:</b> Solo project: I wrote the spec and built the whole application myself.</p>
+        <p class="meta"><b>What I learned:</b> Rules like "only approved alerts are public" and "three alerts a day" have to be enforced on the server, and I documented where strict enforcement would need a database transaction.</p>
+        <p class="links"><a href="https://github.com/SIbonelo-Starlight/CommunityAlerts">Code</a><span style="color:var(--muted);font-weight:500">Not deployed · runs locally</span></p>
+      </article>
+
+      <article class="card">
+        <span class="tag">Project</span>
+        <h3>B&amp;G Fast Food</h3>
+        <p class="oneliner">An online ordering system for a South African braai takeaway: customers build a cart and order, and staff manage the menu from a password-protected admin panel.</p>
+        <p class="meta"><b>Built with:</b> HTML · CSS · JavaScript · Node.js · Express · EmailJS · Nodemailer</p>
+        <p class="meta"><b>What it does:</b> Plate customisation (one side, exactly two salads), delivery or pickup pricing, a cart that survives reloads, emailed order confirmation, and admin login with rate-limited attempts and 2-hour sessions.</p>
+        <p class="meta"><b>My part:</b> Solo project: I wrote the spec, the Node/Express server, the admin panel and the customer shop myself.</p>
+        <p class="meta"><b>What I learned:</b> I wrote down 11 known limitations before launch, such as the server trusting browser-sent prices, so I know what to fix before real customers use it.</p>
+        <p class="links"><a href="https://github.com/SIbonelo-Starlight/B-G-Fast-Food">Code</a><span style="color:var(--muted);font-weight:500">Not deployed · runs locally</span></p>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head reveal"><span class="num">03</span><h2>Skills</h2></div>
+    <div class="skills stagger">
+      <div class="skill">
+        <h3><i>🌐</i>Networking</h3>
+        <p>Core concepts from Cisco Networking Basics (in progress): addressing, how devices communicate, basic troubleshooting.</p>
+      </div>
+      <div class="skill">
+        <h3><i>🛡️</i>Cybersecurity</h3>
+        <p>Threats, defences and the attacker's mindset, from Cisco Introduction to Cybersecurity, plus Ethical Hacker (in progress).</p>
+      </div>
+      <div class="skill">
+        <h3><i>🖥️</i>PC hardware &amp; support</h3>
+        <p>Assembling, diagnosing and configuring PCs, plus installing and troubleshooting operating systems (Cisco IT Essentials).</p>
+      </div>
+      <div class="skill">
+        <h3><i>📊</i>Data</h3>
+        <p>Intro-level data science: asking questions of data and reading results (Cisco Introduction to Data Science).</p>
+      </div>
+      <div class="skill">
+        <h3><i>🧭</i>Leading &amp; planning</h3>
+        <p>Led a team of 4 through three phases of ITS ResFix: Microsoft Project schedule (finished 100%), 30 tracked requirement changes, a risk register and a stakeholder interview with the client.</p>
+      </div>
+      <div class="skill">
+        <h3><i>💻</i>Development · backend focus</h3>
+        <p><b>Backend (my focus):</b> C# (strongest) with ASP.NET Core MVC, Identity and EF Core; Node.js / Express; Supabase/PostgreSQL. <b>Front end:</b> HTML, CSS, JavaScript (learning), Dart/Flutter. <b>Java:</b> basics.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="certificates">
+    <div class="sec-head reveal"><span class="num">04</span><h2>Certificates</h2></div>
+
+    <div class="cert-group reveal">
+      <h3>Completed</h3>
+      <ul class="cert-list">
+        <li class="cert"><span class="ico">✓</span><span class="t">Introduction to Data Science<small>Cisco</small></span><a href="https://www.credly.com/badges/2a07d817-2f22-432b-b76f-264766527539">Verify</a></li>
+        <li class="cert"><span class="ico">✓</span><span class="t">Introduction to Cybersecurity<small>Cisco</small></span><a href="https://www.credly.com/badges/6209a7ac-41f0-45e5-be68-ff8fb5f3dcc0">Verify</a></li>
+        <li class="cert"><span class="ico">✓</span><span class="t">IT Essentials: PC Hardware and Software<small>Cisco · certificate available on request</small></span></li>
+        <li class="cert"><span class="ico">✓</span><span class="t">Learn-A-Ton<small>Credly badge</small></span><a href="https://www.credly.com/badges/54cf750d-881f-48b1-8bd0-1050e16cd450">Verify</a></li>
+      </ul>
+    </div>
+
+    <div class="cert-group reveal">
+      <h3>In progress</h3>
+      <ul class="cert-list">
+        <li class="cert"><span class="ico">…</span><span class="t">Networking Basics<small>Cisco · in progress</small></span></li>
+        <li class="cert"><span class="ico">…</span><span class="t">Ethical Hacker<small>Cisco · about 55% complete</small>
+          <div class="bar"><span style="--p:55%"></span></div></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="cta reveal">
+    <h2>Looking for a junior IT hire or an intern?</h2>
+    <p>Email me and I'll reply with project walkthroughs and my CV.</p>
+    <div class="hero-cta" style="justify-content:center;margin-top:8px">
+      <a class="btn btn-primary" href="mailto:cbonelonkosikhona@gmail.com?subject=Opportunity%20for%20Sibonelo">Email Sibonelo</a>
+      <a class="btn btn-ghost" href="Sibonelo-Shabalala-CV.pdf" download>⬇ Download CV</a>
+    </div>
+    <div class="contact">
+      <a href="mailto:cbonelonkosikhona@gmail.com">cbonelonkosikhona@gmail.com</a>
+      <a href="https://github.com/SIbonelo-Starlight">GitHub</a>
+      <a href="https://www.linkedin.com/in/sibonelo-nkosikhona-shabalala-22505b363/">LinkedIn</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2026 Sibonelo Nkosikhona Shabalala</footer>
+
+<script>
+  // reveal on scroll
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal,.stagger').forEach(function(el){ io.observe(el); });
+
+  // scroll progress + active nav link
+  var bar = document.getElementById('progress');
+  var links = document.querySelectorAll('nav ul a');
+  var secs = Array.prototype.map.call(links, function(a){ return document.querySelector(a.getAttribute('href')); });
+  function onScroll(){
+    var h = document.documentElement;
+    bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+    var cur = -1;
+    secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top < 120) cur = i; });
+    links.forEach(function(a,i){ a.classList.toggle('active', i === cur); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+</body>
+</html>
