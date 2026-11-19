@@ -160,6 +160,10 @@
   .stagger.in .skill:nth-child(4) h3 i{animation-delay:.61s}
   .stagger.in .skill:nth-child(5) h3 i{animation-delay:.73s}
   .stagger.in .skill:nth-child(6) h3 i{animation-delay:.85s}
+  .stagger.in .skill:nth-child(7) h3 i{animation-delay:.97s}
+  .stagger.in>.skill:nth-child(6){transition-delay:.6s}
+  .stagger.in>.skill:nth-child(7){transition-delay:.72s}
+  @media(min-width:900px){.skills .skill:last-child{grid-column:1/-1}}
 
   /* certificates */
   .cert-group{margin-bottom:28px}
@@ -436,6 +440,10 @@
         <p>Led a team of 4 through three phases of ITS ResFix: Microsoft Project schedule (finished 100%), 30 tracked requirement changes, a risk register and a stakeholder interview with the client.</p>
       </div>
       <div class="skill">
+        <h3><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></i>Website development</h3>
+        <p>Responsive websites and web apps, front end and server side: HTML, CSS, JavaScript, Bootstrap, ASP.NET Core MVC (Razor) and Node.js / Express. Built Community Alert System (live), the B&amp;G Fast Food shop, and this portfolio.</p>
+      </div>
+      <div class="skill">
         <h3><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg></i>Development · backend focus</h3>
         <p><b>Backend (my focus):</b> C# (strongest) with ASP.NET Core MVC, Identity and EF Core; Node.js / Express; Supabase/PostgreSQL. <b>Front end:</b> HTML, CSS, JavaScript (learning), Dart/Flutter. <b>Java:</b> basics.</p>
       </div>
@@ -504,7 +512,7 @@
   // typed role line in the hero
   var typedEl = document.getElementById('typed');
   if (typedEl && !reduced) {
-    var phrases = ['an IT graduate', 'a backend-focused developer', 'a team leader', 'a builder of practical tools'];
+    var phrases = ['an IT graduate', 'a backend-focused developer', 'a website developer', 'a team leader','a builder of practical tools'];
     var pi = 0, ci = 0, deleting = false;
     (function tick(){
       var word = phrases[pi];
